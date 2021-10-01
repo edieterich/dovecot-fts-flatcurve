@@ -1,0 +1,13 @@
+messages: 1
+
+ok search text body
+* search 1
+
+ok append $mailbox
+* 2 exists
+
+ok search text body
+* search 1 2
+
+ok search text body
+* search 1 2

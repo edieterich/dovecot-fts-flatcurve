@@ -1,0 +1,7 @@
+!include /dovecot/configs/dovecot.conf
+
+log_debug = category=fts
+
+plugin {
+  fts_languages = de en
+}

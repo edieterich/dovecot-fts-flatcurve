@@ -40,3 +40,11 @@ unset IMAPTEST_NO_SUBSTRING
 run_test "Testing GitHub Issue #9" \
 	/dovecot/configs/dovecot.conf.issue-9 \
 	/dovecot/imaptest/issue-9
+
+run_test "Testing GitHub Issue #10 (English)" \
+	/dovecot/configs/dovecot.conf.issue-10 \
+	/dovecot/imaptest/issue-10-english
+
+run_test "Testing GitHub Issue #10 (German)" \
+	/dovecot/configs/dovecot.conf.issue-10 \
+	/dovecot/imaptest/issue-10-german

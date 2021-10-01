@@ -4,7 +4,7 @@ To: user-to@domain.org
 Cc: user-cc@domain.org
 Bcc: user-bcc@domain.org
 
-body
+body Anhänge
 
 From user@domain  Fri Feb 22 17:06:23 2008
 From: RealFrom <user-from@domain.org>
@@ -12,7 +12,7 @@ To: RealTo <user-to@domain.org>
 Cc: RealCc <user-cc@domain.org>
 Bcc: RealBcc <user-bcc@domain.org>
 
-body2
+body2 Anhänge
 
 From user@domain  Fri Feb 22 17:06:23 2008
 From: <user-from (comment)@ (comment) domain.org>

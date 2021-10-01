@@ -1,0 +1,15 @@
+messages: 1
+
+ok search text anhang
+* search 1
+
+ok append $mailbox
+* 2 exists
+
+# Fails because only 1 is found
+ok search text anhang
+* search 1 2
+
+# Succeeds the second time
+ok search text anhang
+* search 1 2
