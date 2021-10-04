@@ -38,17 +38,20 @@ run_test "Testing prefix-only configuration" \
 	/dovecot/imaptest/fts-test
 unset IMAPTEST_NO_SUBSTRING
 
-run_test "Testing GitHub Issue #9 in mailbox $TESTBOX" \
+TESTBOX=inbox
+run_test "Testing GitHub Issue #9 (1st pass)" \
 	/dovecot/configs/dovecot.conf.issue-9 \
 	/dovecot/imaptest/issue-9
-run_test "Testing GitHub Issue #9 for mailbox $TESTBOX again" \
+run_test "Testing GitHub Issue #9 (2nd pass; crash)" \
 	/dovecot/configs/dovecot.conf.issue-9 \
 	/dovecot/imaptest/issue-9
 
-TESTBOX=inbox
-run_test "Testing GitHub Issue #9 in mailbox $TESTBOX" \
-	/dovecot/configs/dovecot.conf.issue-9 \
-	/dovecot/imaptest/issue-9
-run_test "Testing GitHub Issue #9 in mailbox $TESTBOX again" \
-	/dovecot/configs/dovecot.conf.issue-9 \
-	/dovecot/imaptest/issue-9
+TESTBOX=imaptest
+run_test "Testing GitHub Issue #10 (English)" \
+	/dovecot/configs/dovecot.conf.issue-10 \
+	/dovecot/imaptest/issue-10/issue-10
+export IMAPTEST_ISSUE_10_GERMAN=1
+run_test "Testing GitHub Issue #10 (German; fails)" \
+	/dovecot/configs/dovecot.conf.issue-10 \
+	/dovecot/imaptest/issue-10/issue-10
+unset IMAPTEST_NO_SUBSTRING
