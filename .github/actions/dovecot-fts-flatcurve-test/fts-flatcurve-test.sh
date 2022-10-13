@@ -195,3 +195,9 @@ done
 run_test "Testing virtual search" \
         /dovecot/configs/dovecot.conf.virtual \
         /dovecot/imaptest/virtual
+
+run_doveadm "fts-flatcurve remove -u $TESTUSER INBOX"
+run_not_exists_dir /dovecot/sdbox/user/sdbox/mailboxes/INBOX/dbox-Mails/fts-flatcurve/
+run_test "Testing virtual search with unindexed messages" \
+        /dovecot/configs/dovecot.conf.virtual \
+        /dovecot/imaptest/virtual
