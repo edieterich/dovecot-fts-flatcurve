@@ -195,3 +195,12 @@ done
 run_test "Testing virtual search" \
         /dovecot/configs/dovecot.conf.virtual \
         /dovecot/imaptest/virtual
+
+for m in inbox rotatetest imaptest
+do
+	run_doveadm "expunge -u $TESTUSER mailbox ${m} all"
+	printf "Subject: msg1\n\nbody1\n" | run_doveadm "save -u $TESTUSER -m ${m}"
+done
+run_test "Testing virtual search with fts_autoindex = no" \
+        /dovecot/configs/dovecot.conf.virtual-fts_autoindex-no \
+        /dovecot/imaptest/virtual-fts_autoindex-no
