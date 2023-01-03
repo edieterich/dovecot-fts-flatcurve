@@ -195,3 +195,19 @@ done
 run_test "Testing virtual search" \
         /dovecot/configs/dovecot.conf.virtual \
         /dovecot/imaptest/virtual
+
+/etc/init.d/solr start
+
+TESTBOX=imaptest
+run_test "Testing GitHub Issue #38 using Solr" \
+	/dovecot/configs/dovecot.conf.issue-38-solr \
+	/dovecot/imaptest/issue-38/issue-38
+run_test "Testing GitHub Issue #38 using Lucene" \
+	/dovecot/configs/dovecot.conf.issue-38-lucene \
+	/dovecot/imaptest/issue-38/issue-38
+run_test "Testing GitHub Issue #38 using Squat" \
+	/dovecot/configs/dovecot.conf.issue-38-squat \
+	/dovecot/imaptest/issue-38/issue-38
+run_test "Testing GitHub Issue #38 using Flatcurve" \
+	/dovecot/configs/dovecot.conf.issue-38-flatcurve \
+	/dovecot/imaptest/issue-38/issue-38

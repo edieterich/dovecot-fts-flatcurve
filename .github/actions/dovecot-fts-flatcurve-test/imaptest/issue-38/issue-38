@@ -1,0 +1,10 @@
+messages: all
+
+ok search body bodybody
+* search 1
+ok search body attachment
+* search 1
+ok search or body bodybody header reply-to bodybody
+* search 1
+ok search or body attachment header reply-to attachment
+* search 1

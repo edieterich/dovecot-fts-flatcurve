@@ -1,0 +1,19 @@
+!include /dovecot/configs/dovecot.conf
+
+mail_plugins = $mail_plugins fts fts_squat
+
+plugin {
+  fts = squat
+  fts_squat = partial=4 full=10
+}
+
+plugin {
+  fts_decoder = decode2text
+}
+
+service decode2text {
+  executable = script /usr/local/libexec/dovecot/decode2text.sh
+  unix_listener decode2text {
+    mode = 0666
+  }
+}

@@ -1,0 +1,45 @@
+diff --git a/src/plugins/fts-squat/fts-backend-squat.c b/src/plugins/fts-squat/fts-backend-squat.c
+index fbd7bbe156..ff6d429f61 100644
+--- a/src/plugins/fts-squat/fts-backend-squat.c
++++ b/src/plugins/fts-squat/fts-backend-squat.c
+@@ -21,7 +21,7 @@ struct squat_fts_backend {
+ 	struct squat_trie *trie;
+ 
+ 	unsigned int partial_len, full_len;
+-	bool refresh;
++	/* bool refresh; */
+ };
+ 
+ struct squat_fts_backend_update_context {
+@@ -105,8 +105,9 @@ fts_backend_squat_set_box(struct squat_fts_backend *backend,
+ 	struct mailbox_status status;
+ 	const char *path;
+ 	enum squat_index_flags flags = 0;
+-        int ret;
++        /* int ret; */
+ 
++	/*
+ 	if (backend->box == box)
+         {
+ 		if (backend->refresh) {
+@@ -117,8 +118,9 @@ fts_backend_squat_set_box(struct squat_fts_backend *backend,
+ 		}
+ 		return 0;
+ 	}
++	*/
+ 	fts_backend_squat_unset_box(backend);
+-	backend->refresh = FALSE;
++	/* backend->refresh = FALSE; */
+ 	if (box == NULL)
+ 		return 0;
+ 
+@@ -343,7 +345,8 @@ static int fts_backend_squat_refresh(struct fts_backend *_backend)
+ 	struct squat_fts_backend *backend =
+ 		(struct squat_fts_backend *)_backend;
+ 
+-	backend->refresh = TRUE;
++	/* backend->refresh = TRUE; */
++	fts_backend_squat_unset_box(backend);
+ 	return 0;
+ }
+ 

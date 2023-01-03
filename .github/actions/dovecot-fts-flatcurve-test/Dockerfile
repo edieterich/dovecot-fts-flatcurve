@@ -26,16 +26,27 @@ RUN apt-get update && apt-get install -y \
 	libexttextcat-dev \
 	libicu-dev \
 	libxapian-dev \
-	dovecot-imaptest
+	dovecot-imaptest \
+	libclucene-dev \
+	unzip \
+	poppler-utils \
+	bash \
+	procps \
+	lsof \
+	sudo \
+	default-jre \
+	libexpat1-dev
 
 # We need to build Dovecot ourselves, since "standard" Dovecot does not
 # come with necessary ICU libraries built-in
 RUN mkdir /dovecot
 RUN git clone --depth 1 --branch release-2.3 \
 	https://github.com/dovecot/core.git /dovecot/core
+COPY patches /patches
+RUN cd /dovecot/core && patch -p1 < /patches/fts-squat.patch
 RUN cd /dovecot/core && \
 	./autogen.sh && \
-	PANDOC=false ./configure --with-stemmer --with-textcat --with-icu && \
+	PANDOC=false ./configure --with-stemmer --with-textcat --with-icu --with-lucene --with-solr && \
 	make install
 
 RUN git clone --depth 1 https://github.com/slusarz/dovecot-fts-flatcurve.git \
@@ -50,6 +61,15 @@ RUN useradd vmail && \
 ADD configs/ /dovecot/configs
 RUN chown -R vmail:vmail /dovecot/configs/virtual
 ADD imaptest/ /dovecot/imaptest
+
+RUN wget --quiet https://www-eu.apache.org/dist/lucene/solr/8.11.2/solr-8.11.2.tgz
+RUN tar xzf solr-8.11.2.tgz solr-8.11.2/bin/install_solr_service.sh --strip-components=2
+RUN bash ./install_solr_service.sh solr-8.11.2.tgz && sudo -u solr /opt/solr/bin/solr create -c dovecot
+RUN rm -f /var/solr/data/dovecot/conf/schema.xml
+RUN rm -f /var/solr/data/dovecot/conf/managed-schema
+RUN rm -f /var/solr/data/dovecot/conf/solrconfig.xml
+RUN cp /dovecot/core/doc/solr-config-7.7.0.xml /var/solr/data/dovecot/conf/solrconfig.xml
+RUN cp /dovecot/core/doc/solr-schema-7.7.0.xml /var/solr/data/dovecot/conf/schema.xml
 
 ADD fts-flatcurve-test.sh /fts-flatcurve-test.sh
 RUN chmod +x /fts-flatcurve-test.sh
