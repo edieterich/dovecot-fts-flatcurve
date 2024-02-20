@@ -1,0 +1,6 @@
+state: nonauth
+
+ok login user pass
+ok select imaptest
+ok create Trash
+ok move 1 Trash

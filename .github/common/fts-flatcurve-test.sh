@@ -233,3 +233,20 @@ echo "Testing 'doveadm fts optimize -A'"
 run_doveadm "fts optimize -A"
 # TODO: Scan for expected input
 echo "Success!"
+
+TESTUSER=user
+TESTBOX=imaptest
+echo
+echo "Testing no crash on expunge with empty DB directory"
+printf "Subject: msg\n\nbody\n" | run_doveadm "save -u $TESTUSER -m $TESTBOX"
+ls /dovecot/sdbox/$TESTUSER/sdbox/mailboxes/$TESTBOX/dbox-Mails/fts-flatcurve/
+echo "Create empty DB directory: /dovecot/sdbox/$TESTUSER/sdbox/mailboxes/$TESTBOX/dbox-Mails/fts-flatcurve/index.1234"
+mkdir "/dovecot/sdbox/$TESTUSER/sdbox/mailboxes/$TESTBOX/dbox-Mails/fts-flatcurve/index.1234"
+chown vmail:vmail "/dovecot/sdbox/$TESTUSER/sdbox/mailboxes/$TESTBOX/dbox-Mails/fts-flatcurve/index.1234"
+ls /dovecot/sdbox/$TESTUSER/sdbox/mailboxes/$TESTBOX/dbox-Mails/fts-flatcurve/
+run_test "Move mail to trash to trigger expunge" \
+        /dovecot/configs/dovecot.conf \
+	/dovecot/imaptest/empty_db_directory
+ls /dovecot/sdbox/$TESTUSER/sdbox/mailboxes/$TESTBOX/dbox-Mails/fts-flatcurve/
+cat /dovecot/configs/dovecot.conf
+echo "Success!"
