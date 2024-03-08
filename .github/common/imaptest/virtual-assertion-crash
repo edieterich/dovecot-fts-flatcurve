@@ -1,0 +1,12 @@
+messages: 1
+
+ok search or from user body body
+ok search or header reply-to user body body
+
+ok examine Virtual/All
+
+# From header works
+ok search or from user body body
+
+# Panic: file fts-search.c: line 87 (level_scores_add_vuids): assertion failed: (array_count(&vuids_arr) == array_count(&br->scores))
+ok search or header reply-to user body body

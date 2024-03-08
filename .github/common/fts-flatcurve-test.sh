@@ -61,6 +61,10 @@ function populate_mbox_msg() {
 	printf "$2" | run_doveadm "save -u $TESTUSER -m ${1}"
 }
 
+run_test "Reproduce assertion crash in virtual search" \
+	/dovecot/configs/dovecot.conf.virtual \
+	/dovecot/imaptest/virtual-assertion-crash
+
 run_test "Testing RFC Compliant (substring) configuration" \
 	/dovecot/configs/dovecot.conf \
 	/dovecot/imaptest/fts-test
